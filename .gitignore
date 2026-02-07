@@ -1,0 +1,10 @@
+# Entorno virtual
+flask-taller/
+venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# IDEs
+.vscode/

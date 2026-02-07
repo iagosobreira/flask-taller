@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    {% block link %}  {% endblock %}
+</head>
+<body>
+    <header>
+        <nav class="container">
+            <div class="logo">🔧 Taller</div>
+            <div class="nav-buttons">
+                <a href="{{url_for('main.inicio_login')}}" class="btn btn-login">Iniciar Sesión</a>
+                <a href="/register" class="btn btn-register">Registrarse</a>
+            </div>
+        </nav>
+    </header>
+
+    {% block body %}
+
+    {% endblock %}
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Taller. Todos los derechos reservados.</p>
+            <p>
+                <a href="/about" style="color: #667eea; text-decoration: none; margin: 0 10px;">Acerca de</a>
+                <a href="/contact" style="color: #667eea; text-decoration: none; margin: 0 10px;">Contacto</a>
+                <a href="/privacy" style="color: #667eea; text-decoration: none; margin: 0 10px;">Privacidad</a>
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

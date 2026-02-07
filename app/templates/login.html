@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+
+{% block title %} Taller - Login {% endblock %} 
+{% block link %}<link rel="stylesheet" href="../static/css/login.css"> {% endblock %}
+{% block body %}
+
+    
+    <div class="login-container">
+        <form method="POST" action="" class="login-form">
+            <label for="correo">Correo:</label>
+            <input type="email" id="correo" name="correo" placeholder="micorreo@gmail.com" required>
+            
+            <label for="contrasena">Password:</label>
+            <input type="password" id="contrasena" name="contrasena" placeholder="******" required>
+            
+            <input type="submit" value="Entrar">
+            <a href="{{url_for('main.inicio')}}">Volver</a>
+        </form>
+
+    </div>
+{% endblock %}
