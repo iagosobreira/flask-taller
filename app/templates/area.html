@@ -7,6 +7,36 @@
     
     <h1>Hola {{usuario}}</h1>
 
+    <form method="POST" action="{{url_for('area.anadir_tarea')}}">
+        <label>Motivo cita:</label>
+        <select id="motivo-cita" name="motivo-cita">
+            <option value="cambio-neumaticos">Cambio neumáticos</option>
+            <option value="cambio-aceite">Cambio aceite</option>
+            <option value="averia-motor">Avería motor</option>
+            <option value="averia-frenos">Avería frenos</option>
+        </select>
+        <br>
+        <label>Matricula</label>
+        <input type="text" name="matricula" placeholder="00000AAA" required>
+        <br>
+        <label>Fecha</label>
+        <input type="date" name="fecha-cita" required>
+        <br>
+        <label>Hora</label>
+        <select id="hora-cita" name="hora-cita">
+            <option value="9:00">9:00</option>
+            <option value="10:00">10:00</option>
+            <option value="11:00">11:00</option>
+            <option value="12:00">12:00</option>
+            <option value="13:00">13:00</option>
+            <option value="16:00">16:00</option>
+            <option value="17:00">17:00</option>
+            <option value="18:00">18:00</option>
+        </select>
+        <br>
+        <input type="submit" value="Reservar">
+    </form>
+
     <br>
     <a href="{{url_for('login.logout')}}">Logout</a>
 {% endblock %}
