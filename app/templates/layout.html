@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="../static/css/index.css">
+    <link rel="stylesheet" href="../static/css/layout.css">
     {% block link %}  {% endblock %}
 </head>
 <body>
@@ -13,15 +13,15 @@
             <div class="logo">🔧 Taller</div>
             <div class="nav-buttons">
                 <a href="{{url_for('main.inicio_login')}}" class="btn btn-login">Iniciar Sesión</a>
-                <a href="/register" class="btn btn-register">Registrarse</a>
+                <a href="{{url_for('main.inicio_registro')}}" class="btn btn-register">Registrarse</a>
             </div>
         </nav>
     </header>
+    <main>
+        {% block body %}
 
-    {% block body %}
-
-    {% endblock %}
-
+        {% endblock %}
+    </main>
     <footer>
         <div class="container">
             <p>&copy; 2026 Taller. Todos los derechos reservados.</p>

@@ -9,3 +9,7 @@ def inicio():
 @main.route("/login")
 def inicio_login():
     return render_template("login.html")
+
+@main.route("/registro")
+def inicio_registro():
+    return render_template("registro.html")

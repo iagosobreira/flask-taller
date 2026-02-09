@@ -1,0 +1,12 @@
+{% extends 'layout.html' %}
+
+{% block title %} Taller - Mi Area {% endblock %} 
+{% block link %}<link rel="stylesheet" href="../static/css/login.css"> {% endblock %}
+{% block body %}
+
+    
+    <h1>Hola {{usuario}}</h1>
+
+    <br>
+    <a href="{{url_for('login.logout')}}">Logout</a>
+{% endblock %}

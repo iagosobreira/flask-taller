@@ -15,19 +15,24 @@ Una aplicación web moderna desarrollada en Flask para la gestión de citas y op
 Flask_Taller/
 ├── app/
 │   ├── app.py                 # Aplicación principal
-│   ├── main/
+│   ├── config.py              # Configuración de la aplicación
+│   ├── extensions.py          # Extensiones de Flask
+├── main/
 │   │   └── routes.py          # Rutas principales (inicio, login)
 │   ├── login/
 │   │   └── routes.py          # Rutas de autenticación
 │   ├── templates/
 │   │   ├── layout.html        # Plantilla base
+│   │   ├── area.html          # Página usuario
+│   │   ├── registro.html      # Página registro
 │   │   ├── index.html         # Página de inicio
 │   │   └── login.html         # Formulario de login
 │   └── static/
 │       └── css/
 │           ├── index.css      # Estilos principales
+│           ├── layout.css
 │           └── login.css      # Estilos del login
-└── flask-taller/              # Entorno virtual
+└── requirements.txt
 ```
 
 ## 🛠️ Tecnologías Utilizadas
@@ -106,12 +111,11 @@ python app.py
 
 ## 📝 Próximos Pasos
 
-- [ ] Implementar base de datos
+- [✅] Implementar base de datos
 - [ ] Completar sistema de login
 - [ ] Crear dashboard de usuario
 - [ ] Agendar gestión de citas
 - [ ] Panel de administrador
-- [ ] Notificaciones por email
 
 ## 👈 Contribución
 

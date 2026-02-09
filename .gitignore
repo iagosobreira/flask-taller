@@ -2,6 +2,12 @@
 flask-taller/
 venv/
 
+# Variables de entorno
+.env
+
+#Notas
+Notas.txt
+
 # Python
 __pycache__/
 *.pyc
