@@ -1,13 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block title %} Taller - Mi Area {% endblock %} 
-{% block link %}<link rel="stylesheet" href="../static/css/login.css"> {% endblock %}
+{% block link %}<link rel="stylesheet" href="{{url_for('static', filename='css/area.css')}}"> {% endblock %}
 {% block body %}
+    <div class="area-container">
+        <h1>Hola {{usuario}}</h1>
 
-    
-    <h1>Hola {{usuario}}</h1>
-
-    <form method="POST" action="{{url_for('area.anadir_tarea')}}">
+        <form method="POST" action="{{url_for('area.anadir_tarea')}}" class="reserva-form">
         <label>Motivo cita:</label>
         <select id="motivo-cita" name="motivo-cita">
             <option value="cambio-neumaticos">Cambio neumáticos</option>
@@ -15,13 +14,10 @@
             <option value="averia-motor">Avería motor</option>
             <option value="averia-frenos">Avería frenos</option>
         </select>
-        <br>
         <label>Matricula</label>
         <input type="text" name="matricula" placeholder="00000AAA" required>
-        <br>
         <label>Fecha</label>
         <input type="date" name="fecha-cita" required>
-        <br>
         <label>Hora</label>
         <select id="hora-cita" name="hora-cita">
             <option value="9:00">9:00</option>
@@ -34,9 +30,32 @@
             <option value="18:00">18:00</option>
         </select>
         <br>
-        <input type="submit" value="Reservar">
-    </form>
+            <input type="submit" value="Reservar">
+        </form>
 
-    <br>
-    <a href="{{url_for('login.logout')}}">Logout</a>
+        <a href="{{url_for('login.logout')}}" class="logout-link">Logout</a>
+
+        
+    </div>
+
+    <div class="area-container">
+        <h1>CITAS</h1>
+        <table class="reservas-table">
+        <tr>
+            <th>Motivo cita</th>
+            <th>Matricula</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+        <tr>
+            {% for reserva in reservas %}
+                <td>{{reserva.motivo_cita}}</td>
+                <td>{{reserva.matricula}}</td>
+                <td>{{reserva.fecha_reserva}}</td>
+                <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
+            {% endfor %}
+        </tr>
+    </table>
+    </div>
+
 {% endblock %}

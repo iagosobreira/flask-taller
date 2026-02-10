@@ -1,0 +1,135 @@
+.area-container {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.area-container h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+.reserva-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 40px;
+}
+
+.reserva-form label {
+    font-weight: bold;
+    color: #34495e;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.reserva-form input[type="text"],
+.reserva-form input[type="date"],
+.reserva-form select {
+    padding: 12px;
+    border: 2px solid #bdc3c7;
+    border-radius: 6px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.reserva-form input[type="text"]:focus,
+.reserva-form input[type="date"]:focus,
+.reserva-form select:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 8px rgba(52, 152, 219, 0.3);
+}
+
+.reserva-form input[type="submit"] {
+    padding: 14px 30px;
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reserva-form input[type="submit"]:hover {
+    background: linear-gradient(135deg, #2980b9, #21618c);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.4);
+}
+
+.logout-link {
+    display: inline-block;
+    text-align: center;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background: #e74c3c;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+
+.logout-link:hover {
+    background: #c0392b;
+}
+
+.reservas-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 30px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.reservas-table th,
+.reservas-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.reservas-table th {
+    background: linear-gradient(135deg, #34495e, #2c3e50);
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.reservas-table tr:hover {
+    background: #f8f9fa;
+}
+
+.reservas-table tr:last-child td {
+    border-bottom: none;
+}
+
+.estado {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.estado.pendiente {
+    background: #f39c12;
+    color: white;
+}
+
+.estado.confirmado {
+    background: #27ae60;
+    color: white;
+}
+
+.estado.completado {
+    background: #95a5a6;
+    color: white;
+}

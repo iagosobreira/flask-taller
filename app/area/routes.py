@@ -32,3 +32,5 @@ def anadir_tarea():
         return redirect(url_for('login.area'))
         
     return redirect(url_for('login.area'))
+
+

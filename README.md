@@ -30,7 +30,8 @@ Flask_Taller/
 │   └── static/
 │       └── css/
 │           ├── index.css      # Estilos principales
-│           ├── layout.css
+│           ├── area.css       # Estilos area usuario
+|           ├── layout.css
 │           └── login.css      # Estilos del login
 └── requirements.txt
 ```
@@ -111,7 +112,7 @@ python app.py
 
 ## 📝 Próximos Pasos
 
-- [✅] Implementar base de datos
+- ✅ Implementar base de datos
 - [ ] Completar sistema de login
 - [ ] Crear dashboard de usuario
 - [ ] Agendar gestión de citas

@@ -3,6 +3,7 @@ from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db
 from functools import wraps
+from area.services import obtenerReservas
 
 login=Blueprint('login',__name__)
 
@@ -74,9 +75,10 @@ def login_required(f):
 def area():
     if 'user_id' not in session:
         return redirect(url_for('main.inicio_login'))
+     
+    reservas_creadas=obtenerReservas(session['user_id'])   
         
-        
-    return render_template('area.html',usuario=session['user_name'])
+    return render_template('area.html',usuario=session['user_name'],reservas=reservas_creadas)
     
 
 
