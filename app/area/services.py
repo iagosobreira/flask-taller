@@ -8,3 +8,10 @@ def obtenerReservas(user_id):
     return db.session.execute(sql,{
         'user_id':user_id
     }).fetchall()
+    
+    
+def obtenerAllReservas():
+    
+    sql=text('SELECT * from reservas')
+    
+    return db.session.execute(sql,{}).fetchall()

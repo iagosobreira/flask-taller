@@ -47,14 +47,16 @@
             <th>Fecha</th>
             <th>Estado</th>
         </tr>
-        <tr>
-            {% for reserva in reservas %}
+        
+        {% for reserva in reservas %}
+            <tr>
                 <td>{{reserva.motivo_cita}}</td>
                 <td>{{reserva.matricula}}</td>
                 <td>{{reserva.fecha_reserva}}</td>
                 <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
-            {% endfor %}
-        </tr>
+            </tr>
+        {% endfor %}
+        
     </table>
     </div>
 

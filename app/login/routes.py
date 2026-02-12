@@ -3,7 +3,7 @@ from sqlalchemy import text
 from werkzeug.security import generate_password_hash, check_password_hash
 from extensions import db
 from functools import wraps
-from area.services import obtenerReservas
+from area.services import obtenerReservas, obtenerAllReservas
 
 login=Blueprint('login',__name__)
 
@@ -39,23 +39,25 @@ def crear_usuario():
 
 def iniciar_sesion():
     
-    if request.method=='POST':
-        correo=request.form['correo']
-        contrasena=request.form['contrasena']
+    correo=request.form['correo']
+    contrasena=request.form['contrasena']
+    
+    sql=text('SELECT * FROM usuarios WHERE correo = :correo')
+    
+    result= db.session.execute(sql,{
+        'correo':correo
+    }).fetchone()
+    
+    if result and check_password_hash(result.contrasena, contrasena):
+        session['user_id']=result.id
+        session['user_name']=result.nombre
         
-        sql=text('SELECT * FROM usuarios WHERE correo = :correo')
+        if result.rol=='admin':
+            return redirect(url_for('login.admin_area'))
         
-        result= db.session.execute(sql,{
-            'correo':correo
-        }).fetchone()
+        return redirect(url_for('login.area'))
         
-        if result and check_password_hash(result.contrasena, contrasena):
-            session['user_id']=result.id
-            session['user_name']=result.nombre
-            
-            return redirect(url_for('login.area'))
-        
-    return 
+    return redirect(url_for('main.inicio_login'))
         
 
     
@@ -81,7 +83,15 @@ def area():
     return render_template('area.html',usuario=session['user_name'],reservas=reservas_creadas)
     
 
-
+@login.route("/admin_area")
+@login_required
+def admin_area():
+    if 'user_id' not in session:
+        return redirect(url_for('main.inicio_login'))
+     
+    reservas_creadas=obtenerAllReservas()   
+        
+    return render_template('admin_area.html',usuario=session['user_name'],reservas=reservas_creadas)
 
 @login.route("/logout")
 def logout():

@@ -1,0 +1,35 @@
+{% extends 'layout.html' %}
+
+{% block title %} Taller - Admin Area {% endblock %} 
+{% block link %}<link rel="stylesheet" href="{{url_for('static', filename='css/area.css')}}"> {% endblock %}
+{% block body %}
+    <div class="area-container">
+        <h1>Hola ADMIN {{usuario}} </h1>
+
+    <div class="area-container">
+        <h1>CITAS</h1>
+        <table class="reservas-table">
+        <tr>
+            <th>Motivo cita</th>
+            <th>ID usuario</th>
+            <th>Matricula</th>
+            <th>Fecha</th>
+            <th>Estado</th>
+        </tr>
+        
+        {% for reserva in reservas %}
+        <tr>
+            <td>{{reserva.motivo_cita}}</td>
+            <td>{{reserva.id_usuario}}</td>
+            <td>{{reserva.matricula}}</td>
+            <td>{{reserva.fecha_reserva}}</td>
+            <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+    </div>
+
+    <br>
+    <a href="{{url_for('login.logout')}}" class="logout-link">Logout</a>
+
+{% endblock %}
