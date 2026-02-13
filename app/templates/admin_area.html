@@ -15,6 +15,7 @@
             <th>Matricula</th>
             <th>Fecha</th>
             <th>Estado</th>
+            <th>Opción</th>
         </tr>
         
         {% for reserva in reservas %}
@@ -24,6 +25,13 @@
             <td>{{reserva.matricula}}</td>
             <td>{{reserva.fecha_reserva}}</td>
             <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
+            <td>
+                <form method="POST" action="{{url_for('admin.cambiar_estado')}}">
+                    <input type="hidden" name="reserva_id" value="{{ reserva.id }}">
+                    <input type="submit" value="Aceptar" name="estado_boton">
+                    <input type="submit" value="Rechazar" name="estado_boton">
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
