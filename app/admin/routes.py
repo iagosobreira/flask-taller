@@ -28,3 +28,19 @@ def cambiar_estado():
     db.session.commit()
     
     return redirect(url_for("login.admin_area"))
+
+
+@admin.route('/borrar_reserva', methods=['POST'])
+
+def borrar_reserva():
+    reserva_id=request.form['reserva_id']
+    
+    sql=text('DELETE FROM reservas WHERE id = :reserva_id')
+    
+    db.session.execute(sql,{
+        'reserva_id':reserva_id
+    })
+    
+    db.session.commit()
+    
+    return redirect(url_for('login.admin_area'))

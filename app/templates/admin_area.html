@@ -3,20 +3,24 @@
 {% block title %} Taller - Admin Area {% endblock %} 
 {% block link %}<link rel="stylesheet" href="{{url_for('static', filename='css/area.css')}}"> {% endblock %}
 {% block body %}
-    <div class="area-container">
-        <h1>Hola ADMIN {{usuario}} </h1>
+    <div class="admin-welcome">
+        <h1>Hola ADMIN {{usuario}}</h1>
+    </div>
 
     <div class="area-container">
-        <h1>CITAS</h1>
+        <h1>Citas</h1>
         <table class="reservas-table">
+        <thead>
         <tr>
             <th>Motivo cita</th>
             <th>ID usuario</th>
             <th>Matricula</th>
             <th>Fecha</th>
             <th>Estado</th>
-            <th>Opción</th>
+            <th>Opciones</th>
+            <th>Eliminar</th>
         </tr>
+        </thead>
         
         {% for reserva in reservas %}
         <tr>
@@ -26,12 +30,20 @@
             <td>{{reserva.fecha_reserva}}</td>
             <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
             <td>
-                <form method="POST" action="{{url_for('admin.cambiar_estado')}}">
+                <form method="POST" action="{{url_for('admin.cambiar_estado')}}" class="acciones-form">
                     <input type="hidden" name="reserva_id" value="{{ reserva.id }}">
-                    <input type="submit" value="Aceptar" name="estado_boton">
-                    <input type="submit" value="Rechazar" name="estado_boton">
+                    <input type="submit" value="Aceptar" name="estado_boton" class="btn btn-aceptar">
+                    <input type="submit" value="Rechazar" name="estado_boton" class="btn btn-rechazar">
                 </form>
             </td>
+            {% if reserva.estado != 'Pendiente' %}
+                <td>
+                    <form method="POST" action="{{url_for('admin.borrar_reserva')}}">
+                        <input type="hidden" name="reserva_id" value="{{ reserva.id }}">
+                        <input type="submit" value="Borrar" name="estado_boton" class="btn btn-eliminar">
+                    </form>
+                </td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>

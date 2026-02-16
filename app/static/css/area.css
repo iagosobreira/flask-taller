@@ -1,5 +1,5 @@
 .area-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 30px auto;
     padding: 30px;
     background: #ffffff;
@@ -7,11 +7,40 @@
     box-shadow: 0 4px 20px rgba(0,0,0,0.1);
 }
 
-.area-container h1 {
+.area-container > h1 {
     text-align: center;
     color: #2c3e50;
     margin-bottom: 30px;
-    font-size: 2.5em;
+    font-size: 2em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.admin-header {
+    text-align: center;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.admin-header h1 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+.admin-welcome {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: white;
+    padding: 25px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.admin-welcome h1 {
+    margin: 0;
+    font-size: 1.8em;
+    color: white;
 }
 
 .reserva-form {
@@ -132,4 +161,50 @@
 .estado.completado {
     background: #95a5a6;
     color: white;
+}
+
+.btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-right: 5px;
+}
+
+.btn-aceptar {
+    background: #27ae60;
+    color: white;
+}
+
+.btn-aceptar:hover {
+    background: #219a52;
+    transform: translateY(-1px);
+}
+
+.btn-rechazar {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-rechazar:hover {
+    background: #c0392b;
+    transform: translateY(-1px);
+}
+
+.btn-eliminar {
+    background: #e74c3c;
+    color: white;
+    padding: 8px 14px;
+}
+
+.btn-eliminar:hover {
+    background: #c0392b;
+}
+
+.acciones-form {
+    display: flex;
+    gap: 5px;
 }
