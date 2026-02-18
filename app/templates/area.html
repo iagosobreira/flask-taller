@@ -46,6 +46,7 @@
             <th>Matricula</th>
             <th>Fecha</th>
             <th>Estado</th>
+            <th>Eliminar</th>
         </tr>
         
         {% for reserva in reservas %}
@@ -54,6 +55,12 @@
                 <td>{{reserva.matricula}}</td>
                 <td>{{reserva.fecha_reserva}}</td>
                 <td><span class="estado {{reserva.estado|lower}}">{{reserva.estado}}</span></td>
+                <td>
+                    <form method="POST" action="{{url_for('area.borrar_reserva')}}">
+                        <input type="hidden" value="{{reserva.id}}" name="reserva_id">
+                        <input type="submit" value="Borrar">
+                    </form>
+                </td>
             </tr>
         {% endfor %}
         
@@ -61,3 +68,7 @@
     </div>
 
 {% endblock %}
+
+<script>
+    
+</script>
