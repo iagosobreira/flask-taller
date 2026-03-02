@@ -17,7 +17,7 @@
         <label>Matricula</label>
         <input type="text" name="matricula" placeholder="00000AAA" required>
         <label>Fecha</label>
-        <input type="date" name="fecha-cita" required>
+        <input type="date" name="fecha-cita" id="fecha-cita" required>
         <label>Hora</label>
         <select id="hora-cita" name="hora-cita">
             <option value="9:00">9:00</option>
@@ -58,7 +58,7 @@
                 <td>
                     <form method="POST" action="{{url_for('area.borrar_reserva')}}">
                         <input type="hidden" value="{{reserva.id}}" name="reserva_id">
-                        <input type="submit" value="Borrar">
+                        <input type="submit" value="Borrar" class="btn btn-eliminar">
                     </form>
                 </td>
             </tr>
@@ -67,8 +67,11 @@
     </table>
     </div>
 
+    <script>
+        const hoy = new Date().toISOString().split("T")[0];
+        document.getElementById("fecha-cita").setAttribute("min", hoy);
+    </script>
+
+
 {% endblock %}
 
-<script>
-    
-</script>
