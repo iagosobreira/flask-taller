@@ -20,14 +20,7 @@
         <input type="date" name="fecha-cita" id="fecha-cita" required>
         <label>Hora</label>
         <select id="hora-cita" name="hora-cita">
-            <option value="9:00">9:00</option>
-            <option value="10:00">10:00</option>
-            <option value="11:00">11:00</option>
-            <option value="12:00">12:00</option>
-            <option value="13:00">13:00</option>
-            <option value="16:00">16:00</option>
-            <option value="17:00">17:00</option>
-            <option value="18:00">18:00</option>
+            
         </select>
         <br>
             <input type="submit" value="Reservar">
@@ -70,6 +63,36 @@
     <script>
         const hoy = new Date().toISOString().split("T")[0];
         document.getElementById("fecha-cita").setAttribute("min", hoy);
+    </script>
+
+    <script>
+        document.getElementById('fecha-cita').addEventListener('change', function() {
+            const fecha = this.value;
+            const selectHora = document.getElementById('hora-cita');
+
+            //Llamamos a la ruta que acabamos de crear
+            fetch(`/obtener_horas_disponibles?fecha=${fecha}`)
+                .then(response => response.json())
+                .then(disponibles => {
+                    //Limpiamos las opciones actuales del select
+                    selectHora.innerHTML = '';
+
+                    if (disponibles.length === 0) {
+                        const opt = document.createElement('option');
+                        opt.textContent = "Sin citas disponibles";
+                        opt.disabled = true;
+                        selectHora.appendChild(opt);
+                    } else {
+                        //Rellenamos con las horas que devolvió la base de datos
+                        disponibles.forEach(hora => {
+                            const opt = document.createElement('option');
+                            opt.value = hora;
+                            opt.textContent = hora;
+                            selectHora.appendChild(opt);
+                        });
+                    }
+                });
+        });
     </script>
 
 

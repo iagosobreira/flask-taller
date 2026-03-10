@@ -44,6 +44,7 @@ Flask_Taller/
 │           ├── layout.css     # Estilos base
 │           └── login.css      # Estilos del login
 ├── requirements.txt           # Dependencias del proyecto
+├── Notas.txt                  # Script de base de datos
 └── README.md                  # Documentación
 ```
 
@@ -64,17 +65,24 @@ Flask_Taller/
 - **Responsive**: Adaptado para móviles y desktop
 - **Componentes**: Tarjetas con efectos hover, botones animados
 
-## 📋 Funcionalidades Actuales
+## 📋 Funcionalidades
 
-### ✅ Implementadas
-- **Autenticación Completa**: Login, registro y gestión de sesiones
-- **Gestión de Usuarios**: Registro con roles (admin/usuario)
-- **Sistema de Citas**: Agendar citas con fecha, hora, motivo y matrícula
-- **Panel de Usuario**: Vista personalizada para gestionar reservas propias
-- **Panel Administrativo**: Gestión completa de todas las reservas del sistema
-- **Base de Datos Relacional**: PostgreSQL con tablas de usuarios y reservas
-- **Diseño Responsive**: Adaptado para móviles y desktop
-- **Estados de Citas**: Sistema de estados (aceptada, denegada, pendiente)
+### Autenticación
+- Login con email y contraseña
+- Registro de nuevos usuarios
+- Hashing de contraseñas con Werkzeug
+- Gestión de sesiones
+
+### Usuario
+- Dashboard personalizado
+- Agendar nuevas citas (fecha, hora, motivo, matrícula)
+- Ver lista de reservas propias
+- Estados: Aceptada, Denegada, Pendiente
+
+### Administrador
+- Vista completa de todas las reservas
+- Gestión de estados de citas
+- Información de usuarios y vehículos
 
 ## 🚀 Instalación
 
@@ -108,19 +116,96 @@ pip install -r requirements.txt
    SECRET_KEY=tu_secret_key_aqui
    ```
 
-5. Ejecutar script de base de datos (usar `Notas.txt`):
-```sql
--- Crear tablas de usuarios y reservas
--- Ver contenido en Notas.txt
-```
-
-6. Ejecutar la aplicación:
+5. Ejecutar la aplicación:
 ```bash
 cd app
 python app.py
 ```
 
-7. Abrir en navegador: `http://localhost:5000`
+6. Abrir en navegador: `http://localhost:5000`
+
+## 🗄️ Esquema de Base de Datos
+
+### Tabla: usuarios
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| id | SERIAL | Primary Key |
+| nombre | VARCHAR(100) | Nombre del usuario |
+| correo | VARCHAR(150) | Email único |
+| contrasena | VARCHAR(255) | Contraseña hasheada |
+| rol | VARCHAR(50) | 'admin' o 'usuario' |
+
+### Tabla: reservas
+| Campo | Tipo | Descripción |
+|-------|------|-------------|
+| id | SERIAL | Primary Key |
+| fecha_reserva | TIMESTAMP | Fecha y hora de la cita |
+| estado | estado_reserva | Enum: Aceptada, Denegada, Pendiente |
+| id_usuario | INTEGER | Foreign Key → usuarios.id |
+| motivo_cita | TEXT | Descripción del motivo |
+| matricula | VARCHAR | Matrícula del vehículo |
+
+### Enum: estado_reserva
+- `Aceptada`
+- `Denegada`
+- `Pendiente`
+
+## 💾 Creación de Tablas de Base de Datos
+
+Ejecutar el siguiente script SQL en PostgreSQL para crear las tablas necesarias:
+
+```sql
+-- Crear tabla de usuarios
+CREATE TABLE usuarios (
+    id SERIAL PRIMARY KEY,
+    nombre VARCHAR(100) NOT NULL,
+    correo VARCHAR(150) UNIQUE NOT NULL,
+    contrasena VARCHAR(255) NOT NULL,
+    rol VARCHAR(50) NOT NULL CHECK (rol IN ('admin', 'usuario'))
+);
+
+-- Crear tipo enum para estados de reserva
+CREATE TYPE estado_reserva AS ENUM (
+    'Aceptada',
+    'Denegada',
+    'Pendiente'
+);
+
+-- Crear tabla de reservas
+CREATE TABLE reservas (
+    id SERIAL PRIMARY KEY,
+    fecha_reserva TIMESTAMP NOT NULL,
+    estado estado_reserva NOT NULL DEFAULT 'Pendiente',
+    id_usuario INTEGER NOT NULL,
+    CONSTRAINT fk_usuario
+        FOREIGN KEY (id_usuario)
+        REFERENCES usuarios(id)
+        ON DELETE CASCADE,
+    UNIQUE (fecha_reserva, id_usuario)
+);
+
+-- Agregar columnas adicionales a reservas
+ALTER TABLE reservas
+ADD COLUMN motivo_cita TEXT;
+
+ALTER TABLE reservas
+ADD COLUMN matricula VARCHAR(50);
+```
+
+### Notas:
+- El campo `estado` por defecto es `Pendiente`
+- La restricción `UNIQUE` evita que un usuario tenga dos reservas en el mismo horario
+- La foreign key con `ON DELETE CASCADE` elimina las reservas si se elimina el usuario
+
+## 🔐 Variables de Entorno
+
+Crear archivo `app/.env` con:
+```env
+DATABASE_URL=postgresql://usuario:password@localhost:5432/taller_db
+SECRET_KEY=tu-secret-key-seguro-aqui
+FLASK_ENV=development
+FLASK_DEBUG=True
+```
 
 ## 📱 Vistas de la Aplicación
 
@@ -147,57 +232,16 @@ python app.py
 - Gestión de estados de citas
 - Información de usuarios y vehículos
 
-## 🔧 Configuración
-
-- **Debug Mode**: Configurable en `config.py`
-- **Base de Datos**: PostgreSQL con SQLAlchemy
-- **Host**: localhost (configurable)
-- **Port**: 5000 (por defecto de Flask)
-- **Sesiones**: Flask session management habilitado
-
-## 🗄️ Esquema de Base de Datos
-
-### Tablas Principales:
-- **usuarios**: id, nombre, correo, contrasena, rol
-- **reservas**: id, fecha_reserva, estado, id_usuario, motivo_cita, matricula
-
-### Estados de Reserva:
-- `aceptada`
-- `denegada` 
-- `Pendiente`
-
-## 🔐 Variables de Entorno
-
-Crear archivo `app/.env` con:
-```env
-DATABASE_URL=postgresql://usuario:password@localhost:5432/taller_db
-SECRET_KEY=tu-secret-key-seguro-aqui
-FLASK_ENV=development
-FLASK_DEBUG=True
-```
-
 ## 🧪 Testing
 
-Para ejecutar tests (cuando se implementen):
 ```bash
 python -m pytest tests/
 ```
 
-## 👈 Contribución
-
-El proyecto está en desarrollo activo. Las contribuciones son bienvenidas.
-
-### Flujo de Contribución:
-1. Fork del proyecto
-2. Crear feature branch: `git checkout -b feature/nueva-funcionalidad`
-3. Commit changes: `git commit -m 'Añadir nueva funcionalidad'`
-4. Push to branch: `git push origin feature/nueva-funcionalidad`
-5. Abrir Pull Request
-
 ## 📄 Licencia
 
-Este proyecto está bajo licencia MIT. Ver archivo `LICENSE` para más detalles.
+Este proyecto está bajo licencia MIT.
 
 ---
 
-**Desarrollado con 💜 usando Flask y PostgreSQL**
+**Desarrollado con Flask y PostgreSQL**
